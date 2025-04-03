@@ -1,0 +1,27 @@
+pkgname=mytool
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="mytools for self usage"
+arch=(x86_64)
+url="https://github.com/lennjf/mytool.git"
+license=('GPL')
+makedepends=('git' 'make')
+provides=('mytool')
+conflicts=('mytool')
+source=("${pkgname}-${pkgver}::git+https://github.com/lennjf/mytool.git")
+sha256sums=('SKIP')
+
+build() {
+    cd "$pkgname-$pkgver"
+    make mytool
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    install -d "$pkgdir/usr/lib/"
+    install -d "$pkgdir/usr/include/"
+    install -d "$pkgdir/usr/share/man/man7/"
+    install libmytool.a "$pkgdir/usr/lib/"
+    install mytool.h "$pkgdir/usr/include/"
+    install mytool.7.gz "$pkgdir/usr/share/man/man7/"
+}
