@@ -28,10 +28,12 @@ int main(int argc, char **argv) {
     // }
     // printf("size: %d\n", fl.file_nums);
     char *path = "/tmp/aaa";
-    printf("%d\n", check_dir_exists(path));
+    printf("aaa %d\n", check_file_or_dir_exists(path));
     char *path1 = "/tmp/zim-6vuzhf2l";
-    printf("%d\n", check_dir_exists(path1));
-
-
+    printf("%d\n", check_file_or_dir_exists(path1));
+    char *path2 = "/tmp/ibus.log";
+    printf("%d\n", check_file_or_dir_exists(path2));
+    char *path3 = "/tmp/ibus1.log";
+    printf("%d\n", check_file_or_dir_exists(path3));
     return 0;
 }

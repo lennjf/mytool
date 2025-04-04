@@ -31,6 +31,6 @@ int search_file_by_ext(char* path, char* ext, filelist *fl);
 *     1, exists
 *    -1, error  
 **/   
-int check_dir_exists(const char *path);
+int check_file_or_dir_exists(const char *path);
 
 #endif

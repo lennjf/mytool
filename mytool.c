@@ -52,7 +52,7 @@ int search_file_by_ext(char* path, char* ext, filelist *fl) {
 }
 
 
-int check_dir_exists(const char *path){
+int check_file_or_dir_exists(const char *path){
     struct stat exist_check;
     if(stat(path, &exist_check) == -1){
         if(errno == ENOENT){
