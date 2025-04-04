@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 
 int search_file_by_ext(char* path, char* ext, filelist *fl) {
@@ -47,5 +49,20 @@ int search_file_by_ext(char* path, char* ext, filelist *fl) {
     }
     closedir(dir);
     return 0;
+}
+
+
+int check_dir_exists(const char *path){
+    struct stat exist_check;
+    if(stat(path, &exist_check) == -1){
+        if(errno == ENOENT){
+            printf("path [%s] is not exists\n", path);
+            return 0;
+        }else {
+            perror("check dir exists err");
+            return -1;
+        }
+    }
+    return 1;
 }
 

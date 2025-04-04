@@ -24,4 +24,13 @@ typedef struct {
 **/ 
 int search_file_by_ext(char* path, char* ext, filelist *fl);
 
+/**
+* check the exists of a directory
+* return:
+*     0, not exists
+*     1, exists
+*    -1, error  
+**/   
+int check_dir_exists(const char *path);
+
 #endif

@@ -21,12 +21,17 @@ int main(int argc, char **argv) {
     // }
     //
     // closedir(dir);
-    filelist fl;
-    search_file_by_ext("/repo/mp3", "mp3", &fl);
-    for (int i = 0; i < fl.file_nums; i++) {
-        printf("%d - %s\n", i, fl.list[i]);
-    }
-    printf("size: %d\n", fl.file_nums);
+    // filelist fl;
+    // search_file_by_ext("/repo/mp3", "mp3", &fl);
+    // for (int i = 0; i < fl.file_nums; i++) {
+    //     printf("%d - %s\n", i, fl.list[i]);
+    // }
+    // printf("size: %d\n", fl.file_nums);
+    char *path = "/tmp/aaa";
+    printf("%d\n", check_dir_exists(path));
+    char *path1 = "/tmp/zim-6vuzhf2l";
+    printf("%d\n", check_dir_exists(path1));
+
 
     return 0;
 }
