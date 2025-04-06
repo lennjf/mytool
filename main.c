@@ -27,13 +27,26 @@ int main(int argc, char **argv) {
     //     printf("%d - %s\n", i, fl.list[i]);
     // }
     // printf("size: %d\n", fl.file_nums);
-    char *path = "/tmp/aaa";
-    printf("aaa %d\n", check_file_or_dir_exists(path));
-    char *path1 = "/tmp/zim-6vuzhf2l";
-    printf("%d\n", check_file_or_dir_exists(path1));
-    char *path2 = "/tmp/ibus.log";
-    printf("%d\n", check_file_or_dir_exists(path2));
-    char *path3 = "/tmp/ibus1.log";
-    printf("%d\n", check_file_or_dir_exists(path3));
+    // char *path = "/tmp/aaa";
+    // printf("aaa %d\n", check_file_or_dir_exists(path));
+    // char *path1 = "/tmp/zim-6vuzhf2l";
+    // printf("%d\n", check_file_or_dir_exists(path1));
+    // char *path2 = "/tmp/ibus.log";
+    // printf("%d\n", check_file_or_dir_exists(path2));
+    // char *path3 = "/tmp/ibus1.log";
+    // printf("%d\n", check_file_or_dir_exists(path3));
+
+    filelist fl;
+    char *buf[100] = {
+        ".mp3",
+        ".flac"
+    };
+    
+    search_file_by_multi_ext("/repo/mp3", buf, 2, &fl);
+    for (int i = 0; i < fl.file_nums; i++) {
+        printf("%d - %s\n", i, fl.list[i]);
+    }
+    printf("size: %d\n", fl.file_nums);
+
     return 0;
 }

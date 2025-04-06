@@ -16,7 +16,7 @@ int search_file_by_ext(char* path, char* ext, filelist *fl) {
     char current_dir[100];
     getcwd(current_dir, sizeof(current_dir));
     printf("current dir : %s\n", current_dir);
-    if(strlen(ext)<3){
+    if(strlen(ext)<1){
         printf("extension invalid\n");
         return -1;
     }
@@ -43,6 +43,53 @@ int search_file_by_ext(char* path, char* ext, filelist *fl) {
             char filename[100];
             sprintf(filename, "%s/%s", current_dir, entry->d_name);
             if(search_file_by_ext(filename, ext, fl) < 0) {
+                return -1;
+            }
+        }
+    }
+    closedir(dir);
+    return 0;
+}
+
+int search_file_by_multi_ext(char* path, char** ext, int ext_len, filelist *fl){
+    if(chdir(path) < 0){
+        perror("path invalid");
+        return -1;
+    }
+    char current_dir[100];
+    getcwd(current_dir, sizeof(current_dir));
+    printf("current dir : %s\n", current_dir);
+    for(int i = 0; i < ext_len; i++){
+        if(strlen(ext[i])<1){
+            printf("extension or ext_len invalid\n");
+            return -1;
+        }
+    }
+    DIR *dir = opendir(".");
+    if(dir == NULL){
+        perror("open dir");
+        return -1;
+    }
+    struct dirent * entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if(entry->d_type == DT_REG){
+            int filename_len = strlen(entry->d_name);
+            for (int i = 0; i < ext_len; i++) {
+                int ext_len = strlen(ext[i]);
+                if(strcmp(entry->d_name + filename_len - ext_len, ext[i]) == 0){
+                    char filename[100];
+                    sprintf(filename, "%s/%s", current_dir, entry->d_name);
+                    strcpy(fl->list[fl->file_nums], filename);
+                    fl->file_nums++;
+                }
+            }
+        }else if(entry->d_type == DT_DIR){
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+                continue;             
+            }
+            char filename[100];
+            sprintf(filename, "%s/%s", current_dir, entry->d_name);
+            if(search_file_by_multi_ext(filename, ext, ext_len, fl) < 0) {
                 return -1;
             }
         }
